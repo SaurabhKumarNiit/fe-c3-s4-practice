@@ -11,5 +11,6 @@ export class AppComponent {
 
   onAddViewSelected(selected: boolean){
     this.addBlog = selected;
+    
   }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Blog } from '../models/blog';
+import { BlogService } from '../services/blog.service';
 
 @Component({
   selector: 'app-add-blog',
@@ -9,9 +10,24 @@ import { Blog } from '../models/blog';
 export class AddBlogComponent{
 
   blog: Blog = {};
-  constructor() { }
 
-  saveBlog() {
-    
+  @Output()
+  addBlog:EventEmitter<Blog>=new EventEmitter<Blog>();
+
+  constructor(private blogService:BlogService) { }
+
+  saveBlog(){
+    if (this.blog.title)
+    this.blogService.addBlogs(this.blog).subscribe({
+      next:data=>{
+        this.addBlog.emit(this.blog);
+        this.blog={};
+      },
+      error:e=>{
+        alert("Failed to Fetch Blog due to Network Error");
+      }
+    });
   }
+
+  
 }

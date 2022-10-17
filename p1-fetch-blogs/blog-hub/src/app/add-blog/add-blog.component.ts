@@ -21,6 +21,7 @@ export class AddBlogComponent{
     this.blogService.addBlogs(this.blog).subscribe({
       next:data=>{
         this.addBlog.emit(this.blog);
+        alert("Blog Added Successfully");
         this.blog={};
       },
       error:e=>{
